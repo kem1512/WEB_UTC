@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Danh Sách Sinh Viên";
+    Layout = "/Views/Shared/CustomLayoutHelper.cshtml";
+}
+
+@model IEnumerable<Student>
+
+<a asp-action="Create" class="btn btn-primary mb-3">Tạo Sinh Viên</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Họ Tên</th>
+            <th>Ngày Sinh</th>
+            <th>Ngành</th>
+            <th>Giới Tính</th>
+            <th>Hệ Đào Tạo</th>
+            <th>Địa Chỉ</th>
+            <th>Email</th>
+            <th>Ảnh Đại Diện</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td>@x.Id</td>
+                <td>@x.Name</td>
+                <td>@x.DateOfBirth @{
+                        string str = "";
+                        switch (x.Branch)
+                        {
+                            case Branch.IT:
+                                str = "CNTT";
+                                break;
+                            case Branch.BE:
+                                str = "Kinh Tế";
+                                break;
+                            case Branch.CE:
+                                str = "Công Trình";
+                                break;
+                            case Branch.EE:
+                                str = "Điện - Điện Tử";
+                                break;
+                            default:
+                                str = "Lỗi";
+                                break;
+                        }
+                }</td>
+                <td>@str</td>
+                <td>@(x.Gender == Gender.Male ? "Nam" : "Nữ")</td>
+                <td>@(x.IsRegular ? "Chính Quy" : "Phi Chính Quy")</td>
+                <td>@x.Address</td>
+                <td>@x.Email</td>
+                <td>
+                        @if (x.ProfilePicturePath != null)
+                        {
+                        <img src="@x.ProfilePicturePath" class="w-100" />
+                        }
+                        else
+                        {
+                        <span>Chưa Có Ảnh</span>
+                        }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
