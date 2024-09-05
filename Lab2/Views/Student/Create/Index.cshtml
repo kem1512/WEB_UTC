@@ -1,4 +1,8 @@
-﻿@model Student
+﻿@{
+    Layout = "/Views/Shared/CustomLayoutHelper.cshtml";
+}
+
+@model Student
 
 <div class="container">
     <form asp-controller="Student" asp-action="Create" method="POST" enctype="multipart/form-data">

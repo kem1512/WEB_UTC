@@ -55,11 +55,13 @@ namespace Lab1.Controllers
             };
         }
 
+        [Route("Admin/Student/List")]
         public IActionResult Index()
         {
             return View(Students);
         }
 
+        [Route("Admin/Student/Add")]
         [HttpGet]
         public IActionResult Create()
         {

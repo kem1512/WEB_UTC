@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lab2.ViewComponents
 {
-
     public class RenderViewComponent : ViewComponent
     {
         private readonly List<MenuItem> MenuItems;
