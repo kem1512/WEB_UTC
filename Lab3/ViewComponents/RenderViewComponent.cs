@@ -1,7 +1,7 @@
-﻿using Lab2.Models;
+﻿using Lab3.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Lab2.ViewComponents
+namespace Lab3.ViewComponents
 {
     public class RenderViewComponent : ViewComponent
     {

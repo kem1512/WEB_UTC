@@ -5,30 +5,38 @@
 @model Student
 
 <div class="container">
-    <div asp-validation-summary="All" class="text-danger"></div>
     <form asp-controller="Student" asp-action="Create" method="POST" enctype="multipart/form-data">
         <div class="form-group row mb-3">
             <label asp-for="Name" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
                 <input asp-for="Name" class="form-control" placeholder="Họ Tên" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group row mb-3">
             <label asp-for="Email" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
                 <input asp-for="Email" class="form-control" placeholder="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group row mb-3">
             <label asp-for="Password" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
                 <input asp-for="Password" class="form-control" placeholder="Mật khẩu" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group row mb-3">
             <label asp-for="Branch" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <select asp-for="Branch" asp-items="ViewBag.AllBranches" class="form-control" />
+                <select asp-for="Branch" class="form-control">
+                    @foreach (SelectListItem x in ViewBag.AllBranches)
+                    {
+                        <option value="@x.Value">@x.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="Branch" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group row mb-3">
@@ -38,12 +46,14 @@
                     <input type="checkbox" asp-for="IsRegular" class="custom-control-input" id="IsRegular" />
                     <label class="custom-control-label" for="IsRegular">Chính Quy</label>
                 </div>
+                <span asp-validation-for="IsRegular" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group row mb-3">
             <label asp-for="DateOfBirth" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
                 <input asp-for="DateOfBirth" class="form-control" placeholder="Ngày sinh" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group row mb-3">
@@ -56,18 +66,28 @@
                         <label class="form-check-label" for="Gender@(gender)">@(gender == Gender.Female ? "Nữ" : "Nam")</label>
                     </div>
                 }
+                <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group row mb-3">
             <label asp-for="Address" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
                 <input asp-for="Address" class="form-control" placeholder="Địa Chỉ" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <label asp-for="Score" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="Score" class="form-control" placeholder="Điểm" />
+                <span asp-validation-for="Score" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group row mb-3">
             <label asp-for="ProfilePicture" class="col-sm-2 col-form-label">Ảnh đại diện</label>
             <div class="col-sm-10">
                 <input type="file" asp-for="ProfilePicture" class="form-control-file" />
+                <span asp-validation-for="ProfilePicture" class="text-danger"></span>
             </div>
         </div>
         <div class="form-group row mb-3">

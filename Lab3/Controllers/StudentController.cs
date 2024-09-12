@@ -1,8 +1,8 @@
-﻿using Lab2.Models;
+﻿using Lab3.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Lab2.Controllers
+namespace Lab3.Controllers
 {
     public class StudentController : Controller
     {
