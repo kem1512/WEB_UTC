@@ -80,7 +80,7 @@
             var id = $(this).attr("id");
             var data = { mid: id };
             $.ajax({
-                url: "Learner/LearnerFilter",
+                url: "Learner/SearchByName",
                 data: data,
                 success: function (response) {
                     $("div#content").html(response);
