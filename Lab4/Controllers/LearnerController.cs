@@ -13,8 +13,10 @@ namespace Lab4.Controllers
         {
             db = context;
         }
+
         //khai báo biến toàn cụ pageSize
         private int pageSize = 3;
+
         public IActionResult Index(int? mid)
         {
             var learners = (IQueryable<Learner>)db.Learners
@@ -46,12 +48,14 @@ namespace Lab4.Controllers
                 learners = learners.Where(l => l.MajorId == mid); //lọc
                 ViewBag.mid = mid; //gửi mid về view để ghi lại trên nav-trang
             }
+
             //nếu có keyword thì tìm kiếm theo tên
             if (keyword != null)
             {
-                learners = learners.Where(l => l.EnrollmentDate.Year==2022); //tìm kiếm
+                learners = learners.Where(l => l.EnrollmentDate.Year == 2022); //tìm kiếm
                 ViewBag.keyword = keyword; //gửi keyword về view để ghi lại trên nav-trang
             }
+
             //tính số trang
             int pageNum = (int)Math.Ceiling(learners.Count() / (float)pageSize);            
             ViewBag.pageNum = pageNum; //gửi số trang về view để hiển thị nav-trang
@@ -62,6 +66,7 @@ namespace Lab4.Controllers
                             .Include(m => m.Major);
             return PartialView("LearnerTable", result);
         }
+
         public IActionResult LearnerByMajorId(int mid)
         {
             var learners = db.Learners
@@ -85,17 +90,18 @@ namespace Lab4.Controllers
         {
             //Hai cách tạo SelectList Major hiển thị select-option
             //cách 1
-            var majors = new List<SelectListItem>();
-            foreach (var item in db.Majors)
-            {
-                majors.Add(new SelectListItem { Text = item.MajorName, 
-                    Value = item.MajorId.ToString() });
-            }
-            ViewBag.MajorId = majors;
+            //var majors = new List<SelectListItem>();
+            //foreach (var item in db.Majors)
+            //{
+            //    majors.Add(new SelectListItem { Text = item.MajorName,
+            //        Value = item.MajorId.ToString() });
+            //}
+            //ViewBag.MajorId = majors;
             //cách 2
             ViewBag.MajorId = new SelectList(db.Majors, "MajorId", "MajorName");
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("FirstMidName,LastName,MajorId,EnrollmentDate")] Learner learner)

@@ -3,8 +3,8 @@
     Layout = "~/Views/Shared/MyLayoutHelper.cshtml";
 }
 @model IEnumerable<Learner>
-<div class="ms-2 mx-2">
-    <h1>Learner List</h1>
+<div class="p-4">
+    <h1>Danh Sách Sinh Viên</h1>
     @await Component.InvokeAsync("Major")
     <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="input-group">
@@ -16,49 +16,12 @@
     </form>
 
     <div id="content">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Mã</th>
-                    <th>Tên</th>
-                    <th>Họ</th>
-                    <th>Ngành</th>
-                    <th>Ngày Nhập Học</th>
-                    <th>Chức năng</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var s in Model)
-                {
-                    <tr>
-                        <td>@s.LearnerId</td>
-                        <td>@s.FirstMidName</td>
-                        <td>@s.LastName</td>
-                        <td>@s.Major.MajorName</td>
-                        <td>@s.EnrollmentDate</td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@s.LearnerId">Edit</a>|
-                            <a asp-action="Delete" asp-route-id="@s.LearnerId">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-
-        </table>
-        <ul class="pagination">
-            @for (int i = 1; i <= ViewBag.pageNum; i++)
-            {
-                <li class="page-item " page="@i"
-                    @(ViewBag.mid != null ? "mid='ViewBag.mid'" : "")
-                    @(ViewBag.keyword != null ? "keyword='@ViewBag.keyword'" : "")>
-                    <a class="page-link">@i</a>
-                </li>
-            }
-
-        </ul>
+        @Html.Partial("LearnerTable")
     </div>
-    <a asp-action="Create" class="btn btn-primary">Create New Student</a>
+    
+    <a asp-action="Create" class="btn btn-primary">Tạo Mới Sinh Viên</a>
 </div>
+
 @section Scripts{
     <script>
         $('body').on('click', 'li.page-item', function (e) {
@@ -66,19 +29,7 @@
             var page = $(this).attr("page");
             var mid = $(this).attr("mid");
             var keyword = $(this).attr("keyword");
-            var data = { mid: mid, keyword: keyword, pageIndex: page };            
-            $.ajax({
-                url: "Learner/LearnerFilter",
-                data: data,
-                success: function (response) {
-                    $("div#content").html(response);
-                }
-            });
-        });
-        
-        $(".nav li").click(function (e) {
-            var id = $(this).attr("id");
-            var data = { mid: id };
+            var data = { mid: mid, keyword: keyword, pageIndex: page };
             $.ajax({
                 url: "Learner/LearnerFilter",
                 data: data,
@@ -91,6 +42,18 @@
         $("button#btnSearch").click(function (e) {
             var keyword = $("#keyword").val();
             var data = { keyword: keyword };
+            $.ajax({
+                url: "Learner/SearchByName",
+                data: data,
+                success: function (response) {
+                    $("div#content").html(response);
+                }
+            });
+        });
+
+        $(".nav li").click(function (e) {
+            var id = $(this).attr("id");
+            var data = { mid: id };
             $.ajax({
                 url: "Learner/LearnerFilter",
                 data: data,
