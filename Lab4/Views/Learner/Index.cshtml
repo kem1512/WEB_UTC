@@ -31,7 +31,7 @@
             var keyword = $(this).attr("keyword");
             var data = { mid: mid, keyword: keyword, pageIndex: page };
             $.ajax({
-                url: "Learner/LearnerFilter",
+                url: "Learner/SearchByName",
                 data: data,
                 success: function (response) {
                     $("div#content").html(response);
